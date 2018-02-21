@@ -1,4 +1,4 @@
-Role Name
+Installing Terraform
 =========
 
 Ansible role to install Terraform on Linux x64 machines.
