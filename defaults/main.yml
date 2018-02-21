@@ -1,0 +1,4 @@
+---
+# defaults file for ansible-role-tf
+terraform_dir: "/opt/terraform"
+terraform_version: "0.11.3"
