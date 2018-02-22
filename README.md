@@ -15,21 +15,21 @@ Example Playbook
 requirements.yml
 
 ```
-- name: ansible-role-tf
-  src: https://github.com/Ambisafe/ansible-role-tf.git
+- name: terraform-cli
+  src: https://github.com/Ambisafe/ansible-role-tf-cli.git
 ```
 
 playbook.yml
 
 ```
-- name: testing role ansible-role-tf
+- name: testing role terraform-cli
   hosts: localhost
   gather_facts: false
   vars:
     terraform_version: "0.11.3"
     terraform_dir: "/opt/terraform"
   roles:
-       - { role: ansible-role-tf }
+       - role: terraform-cli
 ```
 
 Author Information
