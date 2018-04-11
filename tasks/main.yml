@@ -4,18 +4,21 @@
   package:
     name: unzip
     state: present
+  tags: terraform_install
 
 - name: Create Terraform directory
   file:
     path: "{{ terraform_dir }}"
     state: directory
   register: terraform_directory
+  tags: terraform_install
 
 - name: Check terraform version
   shell: "terraform --version 2>&1 | grep {{ terraform_version }}"
   failed_when: false
   changed_when: false
   register: terraform_versions_match
+  tags: terraform_install
 
 - name: Create Terraform directory
   file:
@@ -23,12 +26,14 @@
     state: directory
   register: terraform_directory
   when: terraform_versions_match.rc != 0
+  tags: terraform_install
 
 - name: Download terraform archive Linux 64 bits
   get_url:
     url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
     dest: /tmp/terraform-{{ terraform_version }}.zip
   when: terraform_versions_match.rc != 0
+  tags: terraform_install
 
 - name: Unarchive Terraform archive
   unarchive:
@@ -36,6 +41,7 @@
     dest: "{{ terraform_dir }}"
     copy: no
   when: terraform_versions_match.rc != 0 or terraform_directory | changed
+  tags: terraform_install
 
 - name: Adding terraform command to user path
   file:
@@ -43,3 +49,4 @@
     dest: /usr/bin/terraform
     state: link
   when: terraform_versions_match.rc != 0
+  tags: terraform_install
